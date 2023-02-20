@@ -1,0 +1,262 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "cycleDuration",
+        "type": "uint256"
+      }
+    ],
+    "name": "InvalidCycleDuration",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "msgSender",
+        "type": "address"
+      }
+    ],
+    "name": "NotContractFactory",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "poolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "ProtectionPoolAlreadyRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroContractFactoryAddress",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "contractFactory",
+        "type": "address"
+      }
+    ],
+    "name": "ContractFactoryUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "poolAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleIndex",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleStartTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "openCycleDuration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "cycleDuration",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProtectionPoolCycleCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_poolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "calculateAndSetPoolCycleState",
+    "outputs": [
+      {
+        "internalType": "enum ProtectionPoolCycleState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_poolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getCurrentCycleIndex",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_poolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getCurrentCycleState",
+    "outputs": [
+      {
+        "internalType": "enum ProtectionPoolCycleState",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_poolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getCurrentPoolCycle",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "openCycleDuration",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "cycleDuration",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct ProtectionPoolCycleParams",
+            "name": "params",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentCycleIndex",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "currentCycleStartTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum ProtectionPoolCycleState",
+            "name": "currentCycleState",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct ProtectionPoolCycle",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_poolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getNextCycleEndTimestamp",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "_nextCycleEndTimestamp",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_poolAddress",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "openCycleDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "cycleDuration",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct ProtectionPoolCycleParams",
+        "name": "_cycleParams",
+        "type": "tuple"
+      }
+    ],
+    "name": "registerProtectionPool",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_contractFactoryAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setContractFactory",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }
+]

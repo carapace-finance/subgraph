@@ -1,0 +1,21 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "enum LendingProtocol",
+        "name": "_lendingProtocol",
+        "type": "uint8"
+      }
+    ],
+    "name": "getLendingProtocolAdapter",
+    "outputs": [
+      {
+        "internalType": "contract ILendingProtocolAdapter",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

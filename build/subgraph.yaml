@@ -1,0 +1,25 @@
+specVersion: 0.0.4
+description: Credit default swaps contracts by Carapace Protocol
+repository: https://github.com/carapace-finance/subgraph
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ProtectionPool
+    network: localhost
+    source:
+      address: "0xbf35B264B2F1666A1345D6A5245C8668eD7D3674"
+      abi: ProtectionPool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ProtectionPool
+      abis:
+        - name: ProtectionPool
+          file: ProtectionPool/abis/ProtectionPool.json
+      eventHandlers:
+        - event: ProtectionPoolInitialized(string,string,address,address)
+          handler: handleProtectionPoolCreated
+      file: ProtectionPool/ProtectionPool.wasm

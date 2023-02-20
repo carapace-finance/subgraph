@@ -1,0 +1,180 @@
+[
+  {
+    "inputs": [],
+    "name": "CanNotRenewProtectionAfterGracePeriod",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "lendingPoolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "LendingPoolDefaulted",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "lendingPoolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "LendingPoolExpired",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "lendingPoolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "LendingPoolHasLatePayment",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "lendingPoolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "LendingPoolNotSupported",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NoExpiredProtectionToRenew",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "premiumAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxPremiumAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "PremiumExceedsMaxPremiumAmount",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "protectionDurationInSeconds",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProtectionDurationTooLong",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "protectionDurationInSeconds",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProtectionDurationTooShort",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ProtectionPoolInOpenToSellersPhase",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "lendingPoolAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nftLpTokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "protectionAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "protectionDurationInSeconds",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct ProtectionPurchaseParams",
+        "name": "params",
+        "type": "tuple"
+      }
+    ],
+    "name": "ProtectionPurchaseNotAllowed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_targetDecimals",
+        "type": "uint256"
+      }
+    ],
+    "name": "scale18DecimalsAmtToUnderlyingDecimals",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_underlyingAmt",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_underlyingTokenDecimals",
+        "type": "uint256"
+      }
+    ],
+    "name": "scaleUnderlyingAmtTo18Decimals",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]

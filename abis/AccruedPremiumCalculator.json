@@ -1,0 +1,176 @@
+[
+  {
+    "inputs": [],
+    "name": "PRBMathSD59x18__DivInputTooSmall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "rAbs",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMathSD59x18__DivOverflow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int256",
+        "name": "x",
+        "type": "int256"
+      }
+    ],
+    "name": "PRBMathSD59x18__Exp2InputTooBig",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int256",
+        "name": "x",
+        "type": "int256"
+      }
+    ],
+    "name": "PRBMathSD59x18__ExpInputTooBig",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PRBMathSD59x18__MulInputTooSmall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "rAbs",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMathSD59x18__MulOverflow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "prod1",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMath__MulDivFixedPointOverflow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "prod1",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "denominator",
+        "type": "uint256"
+      }
+    ],
+    "name": "PRBMath__MulDivOverflow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_fromSecond",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_toSecond",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_k",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_lambda",
+        "type": "int256"
+      }
+    ],
+    "name": "calculateAccruedPremium",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_protectionPremium",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_protectionDurationInDays",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_currentLeverageRatio",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatioFloor",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatioCeiling",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatioBuffer",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_curvature",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_minCarapaceRiskPremiumPercent",
+        "type": "uint256"
+      }
+    ],
+    "name": "calculateKAndLambda",
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "K",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_lambda",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

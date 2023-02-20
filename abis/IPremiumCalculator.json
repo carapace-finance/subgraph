@@ -1,0 +1,98 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_protectionDurationInSeconds",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_protectionAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_protectionBuyerApy",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatio",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalCapital",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "leverageRatioFloor",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "leverageRatioCeiling",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "leverageRatioBuffer",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "minRequiredCapital",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "curvature",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "minCarapaceRiskPremiumPercent",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "underlyingRiskPremiumPercent",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "minProtectionDurationInSeconds",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "protectionRenewalGracePeriodInSeconds",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct ProtectionPoolParams",
+        "name": "_poolParameters",
+        "type": "tuple"
+      }
+    ],
+    "name": "calculatePremium",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "_premiumAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_isMinPremium",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "name": "subgraph",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carapace-finance/subgraph.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "graph-local": "docker-compose up",
+    "graph-local-clean": "docker-compose down -v && docker-compose rm -v && rm -rf data/ipfs data/postgres",
+    "codegen": "graph codegen",
+    "create-local": "graph create --node http://127.0.0.1:8020 credit-default-swaps",
+    "deploy-local": "graph deploy --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020 credit-default-swaps"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.39.0",
+    "@graphprotocol/graph-ts": "^0.29.3"
+  }
+}

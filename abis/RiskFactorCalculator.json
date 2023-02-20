@@ -1,0 +1,115 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "int256",
+        "name": "x",
+        "type": "int256"
+      }
+    ],
+    "name": "PRBMathSD59x18__LogInputTooSmall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_currentLeverageRatio",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatioFloor",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatioCeiling",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatioBuffer",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_curvature",
+        "type": "uint256"
+      }
+    ],
+    "name": "calculateRiskFactor",
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "_riskFactor",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_minCarapaceRiskPremiumPercent",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_durationInDays",
+        "type": "uint256"
+      }
+    ],
+    "name": "calculateRiskFactorUsingMinPremium",
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "_riskFactor",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_totalCapital",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatio",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatioFloor",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_leverageRatioCeiling",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_minRequiredCapital",
+        "type": "uint256"
+      }
+    ],
+    "name": "canCalculateRiskFactor",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "_canCalculate",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]

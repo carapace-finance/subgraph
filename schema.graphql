@@ -1,0 +1,55 @@
+type ProtectionPool @entity {
+  id: GraphQLID!
+  address: Bytes!
+  underlyingToken: String!
+  referenceLendingPools: [LendingPool]!
+  totalSTokenUnderlying: Int!
+  totalProtection: Int!
+  leverageRatio: Int!
+  cycleDuration: Int!
+  openCycleDuration: Int!
+  currentCycleIndex: Int!
+  remainingDaysInCurrentCycle: Int!
+  renewalAllowancePeriod: Int!
+  minProtectionDurationInSeconds: Int!
+  maxProtectionDurationInSeconds: Int!
+}
+
+type LendingPool @entity {
+  id: GraphQLID!
+  protocol: String!
+  address: Bytes!
+  protectionPool: ProtectionPool!
+  totalProtection: Int!
+  protectionPurchaseLimitTimestamp: Int!
+}
+
+type User @entity {
+  id: GraphQLID!
+  address: Bytes!
+  protectionBought: [ProtectionBought]
+  deposit: [Deposit]
+  withdrawalRequest: [WithdrawalRequest]
+}
+
+type ProtectionBought @entity {
+  id: GraphQLID!
+  nftLpTokenId: Int!
+  premiumAmount: Int!
+  lendingPool: LendingPool!
+  protectionAmount: Int!
+  protectionDurationInSeconds: Int!
+}
+
+type Deposit @entity {
+  id: GraphQLID!
+  protectionPool: ProtectionPool!
+  underlyingAmount: Int!
+}
+
+type WithdrawalRequest @entity {
+  id: GraphQLID!
+  protectionPool: ProtectionPool!
+  sTokenAmount: Int!
+  withdrawalCycleIndex: Int!
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "tranchedPoolAddress",
+        "type": "address"
+      }
+    ],
+    "name": "writedowns",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "writedownAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

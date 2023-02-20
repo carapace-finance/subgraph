@@ -1,0 +1,11 @@
+# auto-generated graph files
+generated
+
+# node modules
+node_modules
+
+# env variables
+.env
+
+# Graph Local
+data

@@ -1,0 +1,7 @@
+type ProtectionPool @entity {
+  id: ID!
+  name: String!
+  symbol: String!
+  underlyingToken: String!
+  referenceLendingPools: String!
+}
