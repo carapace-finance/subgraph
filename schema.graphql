@@ -28,7 +28,7 @@ type User @entity {
   id: ID!
   address: Bytes!
   protectionBought: [ProtectionBought!]
-  deposit: [Deposit!]
+  deposits: [Deposit!]!
   withdrawalRequest: [WithdrawalRequest!]
 }
 
@@ -44,7 +44,7 @@ type ProtectionBought @entity {
 type Deposit @entity {
   id: ID!
   protectionPool: ProtectionPool!
-  underlyingAmount: Int!
+  underlyingAmount: BigInt!
 }
 
 type WithdrawalRequest @entity {
