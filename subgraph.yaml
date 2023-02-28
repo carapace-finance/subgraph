@@ -1,6 +1,4 @@
 specVersion: 0.0.5
-description: Credit default swaps contracts by Carapace Protocol
-repository: https://github.com/carapace-finance/subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -17,6 +15,8 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - ProtectionPool
+        - User
+        - Deposit
       abis:
         - name: ProtectionPool
           file: ./abis/ProtectionPool.json
@@ -25,4 +25,4 @@ dataSources:
           handler: handleProtectionPoolInitialized
         - event: ProtectionSold(indexed address,uint256)
           handler: handleProtectionSold
-      file: ./mapping.ts
+      file: ./src/protection-pool.ts

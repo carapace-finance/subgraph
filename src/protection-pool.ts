@@ -1,8 +1,8 @@
 import {
   ProtectionPoolInitialized,
   ProtectionSold,
-} from "./generated/ProtectionPool/ProtectionPool";
-import { Deposit, ProtectionPool, User } from "./generated/schema";
+} from "../generated/ProtectionPool/ProtectionPool";
+import { ProtectionPool, User, Deposit } from "../generated/schema";
 
 export function handleProtectionPoolInitialized(
   event: ProtectionPoolInitialized
@@ -10,24 +10,32 @@ export function handleProtectionPoolInitialized(
   const protectionPool = new ProtectionPool(event.transaction.from.toHex());
   protectionPool.underlyingToken = event.params.underlyingToken;
   protectionPool.referenceLendingPools = event.params.referenceLendingPools;
+
+  // TODO: need to pool this value from contract
+  protectionPool.totalSTokenUnderlying = 0;
+  protectionPool.totalProtection = 0;
+  protectionPool.leverageRatio = 0;
+  protectionPool.cycleDuration = 0;
+  protectionPool.openCycleDuration = 0;
+  protectionPool.currentCycleIndex = 0;
+  protectionPool.remainingDaysInCurrentCycle = 0;
+  protectionPool.renewalAllowancePeriod = 0;
+  protectionPool.minProtectionDurationInSeconds = 0;
+  protectionPool.maxProtectionDurationInSeconds = 0;
+
+  // persist the protection pool
   protectionPool.save();
 }
 
 export function handleProtectionSold(event: ProtectionSold): void {
-  console.log("handleProtectionSold");
-
   const protectionPoolId = event.transaction.from.toHex();
-  // const protectionPool = ProtectionPool.load(protectionPoolId);
-  // if (protectionPool == null) {
-  //   // TODO: can we do anything else here?
-  //   throw new Error("Protection pool not found, id: " + protectionPoolId);
-  //   return;
-  // }
 
   let user = User.load(event.params.protectionSeller.toHex());
   if (user == null) {
     user = new User(event.params.protectionSeller.toHex());
     user.deposits = [];
+    user.protections = [];
+    user.withdrawalRequests = [];
   }
 
   // Create and persist a new deposit
@@ -41,6 +49,4 @@ export function handleProtectionSold(event: ProtectionSold): void {
   deposits.push(deposit.id);
   user.deposits = deposits;
   user.save();
-
-  console.log("handleProtectionSold done");
 }

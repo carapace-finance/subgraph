@@ -1,6 +1,5 @@
 type ProtectionPool @entity {
   id: ID!
-  address: Bytes!
   underlyingToken: Bytes!
   referenceLendingPools: Bytes!
   totalSTokenUnderlying: Int!
@@ -26,25 +25,24 @@ type LendingPool @entity {
 
 type User @entity {
   id: ID!
-  address: Bytes!
-  protectionBought: [ProtectionBought!]
   deposits: [Deposit!]!
-  withdrawalRequest: [WithdrawalRequest!]
-}
-
-type ProtectionBought @entity {
-  id: ID!
-  nftLpTokenId: Int!
-  premiumAmount: Int!
-  lendingPool: LendingPool!
-  protectionAmount: Int!
-  protectionDurationInSeconds: Int!
+  protections: [Protection!]!
+  withdrawalRequests: [WithdrawalRequest!]!
 }
 
 type Deposit @entity {
   id: ID!
   protectionPool: ProtectionPool!
   underlyingAmount: BigInt!
+}
+
+type Protection @entity {
+  id: ID!
+  nftLpTokenId: Int!
+  premiumAmount: Int!
+  lendingPool: LendingPool!
+  protectionAmount: Int!
+  protectionDurationInSeconds: Int!
 }
 
 type WithdrawalRequest @entity {
