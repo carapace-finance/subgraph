@@ -6,9 +6,9 @@ dataSources:
     name: ProtectionPool
     network: localhost
     source:
-      address: "0xCBd5431cC04031d089c90E7c83288183A6Fe545d"
+      address: "0x45d8e555Ef4033084e8d7d221182bB8E18E2bfC6"
       abi: ProtectionPool
-      startBlock: 0
+      startBlock: 22
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
