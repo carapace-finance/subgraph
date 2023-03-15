@@ -2,14 +2,14 @@
 
 ## In the Credit-Default-Swaps-Contracts Repo
 
-1. Run the local hardhat node (without mainnet forking) by executing `npx hardhat node:0` in a terminal.
-2. In a different terminal, deploy the contracts to the local node by executing `deploy-mock-and-setup:localhost`.
+1. Run the local hardhat node (without mainnet forking) by executing `npm run node:0` in a terminal.
+2. In a different terminal, deploy the contracts to the local node by executing `npm run deploy-mock-and-setup:localhost`.
    <br> This should also setup the test transactions for the local subgraph dev.
 
 ## In the Subgraph Repo
 
 3. Add/update addresses to `subgraph.yaml` for all deployed contracts with subgraph mappings.
-4. Also, update the block number where the contracts were deployed
+4. Also, update the block number where the contracts were deployed in the `subgraph.yaml`.
 5. Start the docker app and run `npm run graph-local` in new terminal to start the local graph node.
 6. Open another terminal window and generate AssemblyScript types for ABIs and the subgraph schema by executing `npm run codegen`.
 7. Registers a subgraph name with on the local graph node by running `npm run create-local`.
