@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "ProtectionPool": {
+      "address": "0x45d8e555Ef4033084e8d7d221182bB8E18E2bfC6",
+      "startBlock": 22
+    }
+  }
+}
