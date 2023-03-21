@@ -1,53 +1,53 @@
 type ProtectionPool @entity {
-  id: ID!
+  id: ID! # protection pool address
   underlyingToken: Bytes!
   referenceLendingPools: Bytes!
-  totalSTokenUnderlying: Int!
-  totalProtection: Int!
-  leverageRatio: Int!
-  cycleDuration: Int!
-  openCycleDuration: Int!
-  currentCycleIndex: Int!
-  remainingDaysInCurrentCycle: Int!
-  renewalAllowancePeriod: Int!
-  minProtectionDurationInSeconds: Int!
-  maxProtectionDurationInSeconds: Int!
+  totalSTokenUnderlying: BigInt!
+  totalProtection: BigInt!
+  leverageRatio: BigInt!
+  cycleDuration: BigInt!
+  openCycleDuration: BigInt!
+  currentCycleIndex: BigInt!
+  currentCycleStartTime: BigInt!
+  minProtectionDurationInSeconds: BigInt!
+  protectionRenewalGracePeriodInSeconds: BigInt!
 }
 
 type LendingPool @entity {
-  id: ID!
+  id: ID! # lending pool address
   protocol: String!
-  address: Bytes!
-  protectionPool: ProtectionPool!
-  totalProtection: Int!
-  protectionPurchaseLimitTimestamp: Int!
+  addedTimestamp: BigInt!
+  protectionPurchaseLimitTimestamp: BigInt!
+  totalProtection: BigInt!
 }
 
 type User @entity {
-  id: ID!
-  deposits: [Deposit!]!
+  id: ID! # user address
+  sTokenAmount: BigInt!
   protections: [Protection!]!
   withdrawalRequests: [WithdrawalRequest!]!
 }
 
 type Deposit @entity {
-  id: ID!
-  protectionPool: ProtectionPool!
-  underlyingAmount: BigInt!
+  id: ID! # transaction hash
+  userAddress: Bytes!
+  sTokenAmount: BigInt!
 }
 
 type Protection @entity {
-  id: ID!
-  nftLpTokenId: Int!
-  premiumAmount: Int!
+  id: ID! # transaction hash
+  userAddress: Bytes!
+  nftLpTokenId: BigInt!
+  premiumAmount: BigInt!
   lendingPool: LendingPool!
-  protectionAmount: Int!
-  protectionDurationInSeconds: Int!
+  protectionAmount: BigInt!
+  startTimestamp: BigInt!
+  protectionDurationInSeconds: BigInt!
 }
 
 type WithdrawalRequest @entity {
-  id: ID!
-  protectionPool: ProtectionPool!
-  sTokenAmount: Int!
-  withdrawalCycleIndex: Int!
+  id: ID! # transaction hash
+  userAddress: Bytes!
+  sTokenAmount: BigInt!
+  withdrawalCycleIndex: BigInt!
 }
