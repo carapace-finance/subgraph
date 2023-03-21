@@ -23,10 +23,10 @@ export function handleProtectionPoolInitialized(
   if (!protectionPool) {
     protectionPool = new ProtectionPool(event.address.toHexString());
     protectionPool.id = event.address.toHexString();
-    protectionPool.cycleDuration = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
-    protectionPool.openCycleDuration = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
-    protectionPool.currentCycleIndex = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
-    protectionPool.currentCycleStartTime = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
+    protectionPool.cycleDuration = ZERO_BIG_INT;
+    protectionPool.openCycleDuration = ZERO_BIG_INT;
+    protectionPool.currentCycleIndex = ZERO_BIG_INT;
+    protectionPool.currentCycleStartTime = ZERO_BIG_INT;
   }
 
   protectionPool.underlyingToken = event.params.underlyingToken;
@@ -49,36 +49,34 @@ export function handleProtectionPoolInitialized(
   protectionPool.save();
 }
 
-// export function handleProtectionSold(event: ProtectionSold): void {
-//   const transactionHash = event.transaction.hash.toHexString();
-//   let deposit = Deposit.load(transactionHash);
-//   if (!deposit) {
-//     deposit = new Deposit(transactionHash);
-//     deposit.id = transactionHash;
-//     deposit.userAddress = event.params.protectionSeller;
-//   }
-//   const protectionPoolContract = ProtectionPoolContract.bind(event.address);
-//   const sTokenAmount = protectionPoolContract.convertToSToken(
-//     event.params.protectionAmount
-//   );
-//   deposit.sTokenAmount = deposit.sTokenAmount.plus(sTokenAmount);
-//   deposit.save();
+export function handleProtectionSold(event: ProtectionSold): void {
+  const transactionHash = event.transaction.hash.toHexString();
+  let deposit = Deposit.load(transactionHash);
+  if (!deposit) {
+    deposit = new Deposit(transactionHash);
+    deposit.id = transactionHash;
+    deposit.userAddress = event.params.protectionSeller;
+    deposit.sTokenAmount = ZERO_BIG_INT;
+  }
+  const protectionPoolContract = ProtectionPoolContract.bind(event.address);
+  const sTokenAmount = protectionPoolContract.convertToSToken(
+    event.params.protectionAmount
+  );
+  deposit.sTokenAmount = deposit.sTokenAmount.plus(sTokenAmount);
+  deposit.save();
 
-//   const sellerAddressId = event.params.protectionSeller.toHex();
-//   let user = User.load(sellerAddressId);
-//   if (!user) {
-//     user = new User(sellerAddressId);
-//     user.id = sellerAddressId;
-//   }
-//   user.sTokenAmount = deposit.sTokenAmount;
-//   user.protections = [];
-//   user.withdrawalRequests = [];
-//   // if (!sTokenAmount) {
-//   //   user.sTokenAmount.plus(BigInt.zero());
-//   // }
-//   // user.sTokenAmount = user.sTokenAmount.plus(sTokenAmount);
-//   user.save();
-// }
+  const sellerAddressId = event.params.protectionSeller.toHexString();
+  let user = User.load(sellerAddressId);
+  if (!user) {
+    user = new User(sellerAddressId);
+    user.id = sellerAddressId;
+    user.sTokenAmount = ZERO_BIG_INT;
+    user.protections = [];
+    user.withdrawalRequests = [];
+  }
+  user.sTokenAmount = user.sTokenAmount.plus(deposit.sTokenAmount);
+  user.save();
+}
 
 // export function handleProtectionBought(event: ProtectionBought): void {
 //   const transactionHash = event.transaction.hash.toHexString();
@@ -134,25 +132,27 @@ export function handleProtectionPoolInitialized(
 //   user.save();
 // }
 
-// export function handleWithdrawalMade(event: WithdrawalMade): void {
-//   const transactionHash = event.transaction.hash.toHexString();
-//   let deposit = Deposit.load(transactionHash);
-//   if (!deposit) {
-//     deposit = new Deposit(transactionHash);
-//     deposit.id = transactionHash;
-//     deposit.userAddress = event.params.seller;
-//   }
-//   deposit.sTokenAmount = deposit.sTokenAmount.minus(event.params.tokenAmount);
-//   deposit.save();
+export function handleWithdrawalMade(event: WithdrawalMade): void {
+  const transactionHash = event.transaction.hash.toHexString();
+  let deposit = Deposit.load(transactionHash);
+  if (!deposit) {
+    deposit = new Deposit(transactionHash);
+    deposit.id = transactionHash;
+    deposit.userAddress = event.params.seller;
+    deposit.sTokenAmount = ZERO_BIG_INT;
+  }
+  deposit.sTokenAmount = deposit.sTokenAmount.minus(event.params.tokenAmount);
+  deposit.save();
 
-//   const sellerAddressId = event.params.seller.toHexString();
-//   let user = User.load(sellerAddressId);
-//   if (!user) {
-//     user = new User(sellerAddressId);
-//     user.id = sellerAddressId;
-//     user.protections = [];
-//     user.withdrawalRequests = [];
-//   }
-//   user.sTokenAmount = user.sTokenAmount.minus(event.params.tokenAmount);
-//   user.save();
-// }
+  const sellerAddressId = event.params.seller.toHexString();
+  let user = User.load(sellerAddressId);
+  if (!user) {
+    user = new User(sellerAddressId);
+    user.id = sellerAddressId;
+    user.sTokenAmount = ZERO_BIG_INT;
+    user.protections = [];
+    user.withdrawalRequests = [];
+  }
+  user.sTokenAmount = user.sTokenAmount.minus(event.params.tokenAmount);
+  user.save();
+}
