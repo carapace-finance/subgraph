@@ -14,6 +14,7 @@
 6. Open another terminal window and generate AssemblyScript types for ABIs and the subgraph schema by executing `npm run codegen`.
 7. Registers a subgraph name with on the local graph node by running `npm run create-local`.
 8. Deploy the subgraph to the local graph node by running `npm run deploy-local`.
+9. You can execute `npm run start-graph-local` & `npm run setup-local` for steps 5-8 in batch.
 
 ## Data Cleanup
 
