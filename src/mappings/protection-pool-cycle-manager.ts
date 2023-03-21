@@ -1,7 +1,6 @@
 import { ProtectionPoolCycleCreated } from "../../generated/ProtectionPoolCycleManager/ProtectionPoolCycleManager";
 import { ProtectionPool } from "../../generated/schema";
-import { ZERO_BIG_INT } from "../utils/constants";
-import { Bytes } from "@graphprotocol/graph-ts";
+import { ZERO_BIG_INT, ZERO_BYTES } from "../utils/constants";
 
 export function handleProtectionPoolCycleCreated(
   event: ProtectionPoolCycleCreated
@@ -12,8 +11,8 @@ export function handleProtectionPoolCycleCreated(
   if (!protectionPool) {
     protectionPool = new ProtectionPool(event.params.poolAddress.toHexString());
     protectionPool.id = event.params.poolAddress.toHexString();
-    protectionPool.underlyingToken = Bytes.fromI32(0);
-    protectionPool.referenceLendingPools = Bytes.fromI32(0);
+    protectionPool.underlyingToken = ZERO_BYTES;
+    protectionPool.referenceLendingPools = ZERO_BYTES;
     protectionPool.totalSTokenUnderlying = ZERO_BIG_INT;
     protectionPool.totalProtection = ZERO_BIG_INT;
     protectionPool.leverageRatio = ZERO_BIG_INT;
