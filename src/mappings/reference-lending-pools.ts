@@ -12,12 +12,12 @@ export function handleReferenceLendingPoolAdded(
     lendingPool = new LendingPool(
       event.params.lendingPoolAddress.toHexString()
     );
+    lendingPool.id = event.params.lendingPoolAddress.toHexString();
+    lendingPool.totalProtection = ZERO_BIG_INT;
   }
-  lendingPool.id = event.params.lendingPoolAddress.toHexString();
   lendingPool.protocol =
     event.params.lendingPoolProtocol === 0 ? "Goldfinch" : "NA";
   lendingPool.addedTimestamp = event.params.addedTimestamp;
   lendingPool.protectionPurchaseLimitTimestamp =
     event.params.protectionPurchaseLimitTimestamp;
-  lendingPool.totalProtection = ZERO_BIG_INT;
 }
