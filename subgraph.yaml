@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0x46997704d755037925A29dB3d439cBeF52816418"
       abi: ProtectionPool
-      startBlock: 22
+      startBlock: 0
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -17,6 +17,8 @@ dataSources:
         - ProtectionPool
         - User
         - Deposit
+        - Protection
+        - WithdrawalRequest
       abis:
         - name: ProtectionPool
           file: ./abis/ProtectionPool.json
@@ -25,4 +27,50 @@ dataSources:
           handler: handleProtectionPoolInitialized
         - event: ProtectionSold(indexed address,uint256)
           handler: handleProtectionSold
-      file: ./src/protection-pool.ts
+        - event: ProtectionBought(indexed address,indexed address,uint256,uint256)
+          handler: handleProtectionBought
+        - event: WithdrawalRequested(indexed address,uint256,uint256)
+          handler: handleWithdrawalRequested
+        - event: WithdrawalMade(indexed address,uint256,address)
+          handler: handleWithdrawalMade
+      file: ./src/mappings/protection-pool.ts
+  - kind: ethereum
+    name: ReferenceLendingPools
+    network: localhost
+    source:
+      address: "0xf1f88EEba006339465E4A7d32ff3E9bDfd499363"
+      abi: ReferenceLendingPools
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - LendingPool
+      abis:
+        - name: ReferenceLendingPools
+          file: ./abis/ReferenceLendingPools.json
+      eventHandlers:
+        - event: ReferenceLendingPoolAdded(indexed address,indexed uint8,uint256,uint256)
+          handler: handleReferenceLendingPoolAdded
+      file: ./src/mappings/reference-lending-pools.ts
+  - kind: ethereum
+    name: ProtectionPoolCycleManager
+    network: localhost
+    source:
+      address: "0x7A8BdcdA30A7159F50e7B6f0e400c81C046439Dc"
+      abi: ProtectionPoolCycleManager
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ProtectionPool
+      abis:
+        - name: ProtectionPoolCycleManager
+          file: ./abis/ProtectionPoolCycleManager.json
+      eventHandlers:
+        - event: ProtectionPoolCycleCreated(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleProtectionPoolCycleCreated
+      file: ./src/mappings/protection-pool-cycle-manager.ts
