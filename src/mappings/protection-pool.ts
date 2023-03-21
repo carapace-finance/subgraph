@@ -22,9 +22,13 @@ export function handleProtectionPoolInitialized(
   let protectionPool = ProtectionPool.load(event.address.toHexString());
   if (!protectionPool) {
     protectionPool = new ProtectionPool(event.address.toHexString());
+    protectionPool.id = event.address.toHexString();
+    protectionPool.cycleDuration = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
+    protectionPool.openCycleDuration = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
+    protectionPool.currentCycleIndex = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
+    protectionPool.currentCycleStartTime = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
   }
 
-  protectionPool.id = event.address.toHexString();
   protectionPool.underlyingToken = event.params.underlyingToken;
   protectionPool.referenceLendingPools = event.params.referenceLendingPools;
 
@@ -37,10 +41,6 @@ export function handleProtectionPoolInitialized(
     protectionPoolDetails.get_totalSTokenUnderlying();
   protectionPool.totalProtection = protectionPoolDetails.get_totalProtection();
   protectionPool.leverageRatio = leverageRatio;
-  protectionPool.cycleDuration = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
-  protectionPool.openCycleDuration = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
-  protectionPool.currentCycleIndex = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
-  protectionPool.currentCycleStartTime = ZERO_BIG_INT; // can we update this with the deployment of the cycle manager later?
   protectionPool.minProtectionDurationInSeconds =
     protectionPoolParams.minProtectionDurationInSeconds;
   protectionPool.protectionRenewalGracePeriodInSeconds =

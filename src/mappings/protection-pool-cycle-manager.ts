@@ -1,5 +1,7 @@
 import { ProtectionPoolCycleCreated } from "../../generated/ProtectionPoolCycleManager/ProtectionPoolCycleManager";
 import { ProtectionPool } from "../../generated/schema";
+import { ZERO_BIG_INT } from "../utils/constants";
+import { Bytes } from "@graphprotocol/graph-ts";
 
 export function handleProtectionPoolCycleCreated(
   event: ProtectionPoolCycleCreated
@@ -9,9 +11,16 @@ export function handleProtectionPoolCycleCreated(
   );
   if (!protectionPool) {
     protectionPool = new ProtectionPool(event.params.poolAddress.toHexString());
+    protectionPool.id = event.params.poolAddress.toHexString();
+    protectionPool.underlyingToken = Bytes.fromI32(0);
+    protectionPool.referenceLendingPools = Bytes.fromI32(0);
+    protectionPool.totalSTokenUnderlying = ZERO_BIG_INT;
+    protectionPool.totalProtection = ZERO_BIG_INT;
+    protectionPool.leverageRatio = ZERO_BIG_INT;
+    protectionPool.minProtectionDurationInSeconds = ZERO_BIG_INT;
+    protectionPool.protectionRenewalGracePeriodInSeconds = ZERO_BIG_INT;
   }
 
-  protectionPool.id = event.params.poolAddress.toHexString();
   protectionPool.cycleDuration = event.params.cycleDuration;
   protectionPool.openCycleDuration = event.params.openCycleDuration;
   protectionPool.currentCycleIndex = event.params.cycleIndex;
