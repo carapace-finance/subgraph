@@ -18,7 +18,7 @@
 ## Data Cleanup
 
 If for any reason you stop the hardhat node, it is recommended to stop the graph node, delete the ipfs and postgres folders in data (or the whole data folder) created by the graph node.
-You can `run npm run graph-local-clean` that will do that for you and then repeat steps 1-8.
+You can run `npm run graph-local-clean` that will do that for you and then repeat steps 1-8.
 
 # The Local Subgraph Endpoint
 
