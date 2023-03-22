@@ -20,4 +20,5 @@ export function handleReferenceLendingPoolAdded(
   lendingPool.addedTimestamp = event.params.addedTimestamp;
   lendingPool.protectionPurchaseLimitTimestamp =
     event.params.protectionPurchaseLimitTimestamp;
+  lendingPool.save();
 }
