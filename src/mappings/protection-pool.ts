@@ -10,7 +10,7 @@ import {
 import {
   ProtectionPool,
   User,
-  Deposit,
+  SToken,
   Protection,
   WithdrawalRequest
 } from "../../generated/schema";
@@ -51,19 +51,19 @@ export function handleProtectionPoolInitialized(
 
 export function handleProtectionSold(event: ProtectionSold): void {
   const transactionHash = event.transaction.hash.toHexString();
-  let deposit = Deposit.load(transactionHash);
-  if (!deposit) {
-    deposit = new Deposit(transactionHash);
-    deposit.id = transactionHash;
-    deposit.userAddress = event.params.protectionSeller;
-    deposit.sTokenAmount = ZERO_BIG_INT;
+  let sToken = SToken.load(transactionHash);
+  if (!sToken) {
+    sToken = new SToken(transactionHash);
+    sToken.id = transactionHash;
+    sToken.userAddress = event.params.protectionSeller;
+    sToken.sTokenAmount = ZERO_BIG_INT;
   }
   const protectionPoolContract = ProtectionPoolContract.bind(event.address);
   const sTokenAmount = protectionPoolContract.convertToSToken(
     event.params.protectionAmount
   );
-  deposit.sTokenAmount = deposit.sTokenAmount.plus(sTokenAmount);
-  deposit.save();
+  sToken.sTokenAmount = sToken.sTokenAmount.plus(sTokenAmount);
+  sToken.save();
 
   const sellerAddressId = event.params.protectionSeller.toHexString();
   let user = User.load(sellerAddressId);
@@ -74,7 +74,7 @@ export function handleProtectionSold(event: ProtectionSold): void {
     user.protections = [];
     user.withdrawalRequests = [];
   }
-  user.sTokenAmount = user.sTokenAmount.plus(deposit.sTokenAmount);
+  user.sTokenAmount = user.sTokenAmount.plus(sToken.sTokenAmount);
   user.save();
 }
 
@@ -134,15 +134,15 @@ export function handleProtectionSold(event: ProtectionSold): void {
 
 export function handleWithdrawalMade(event: WithdrawalMade): void {
   const transactionHash = event.transaction.hash.toHexString();
-  let deposit = Deposit.load(transactionHash);
-  if (!deposit) {
-    deposit = new Deposit(transactionHash);
-    deposit.id = transactionHash;
-    deposit.userAddress = event.params.seller;
-    deposit.sTokenAmount = ZERO_BIG_INT;
+  let sToken = SToken.load(transactionHash);
+  if (!sToken) {
+    sToken = new SToken(transactionHash);
+    sToken.id = transactionHash;
+    sToken.userAddress = event.params.seller;
+    sToken.sTokenAmount = ZERO_BIG_INT;
   }
-  deposit.sTokenAmount = deposit.sTokenAmount.minus(event.params.tokenAmount);
-  deposit.save();
+  sToken.sTokenAmount = sToken.sTokenAmount.minus(event.params.tokenAmount);
+  sToken.save();
 
   const sellerAddressId = event.params.seller.toHexString();
   let user = User.load(sellerAddressId);

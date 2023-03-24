@@ -28,7 +28,7 @@ type User @entity {
   withdrawalRequests: [WithdrawalRequest!]!
 }
 
-type Deposit @entity {
+type SToken @entity {
   id: ID! # transaction hash
   userAddress: Bytes!
   sTokenAmount: BigInt!

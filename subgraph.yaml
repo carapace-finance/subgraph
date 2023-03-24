@@ -16,7 +16,7 @@ dataSources:
       entities:
         - ProtectionPool
         - User
-        - Deposit
+        - SToken
         - Protection
         - WithdrawalRequest
       abis:
