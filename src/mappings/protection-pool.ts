@@ -109,28 +109,35 @@ export function handleProtectionSold(event: ProtectionSold): void {
 //   user.save();
 // }
 
-// export function handleWithdrawalRequested(event: WithdrawalRequested): void {
-//   const transactionHash = event.transaction.hash.toHexString();
-//   let withdrawalRequest = WithdrawalRequest.load(transactionHash);
-//   if (!withdrawalRequest) {
-//     withdrawalRequest = new WithdrawalRequest(transactionHash);
-//     withdrawalRequest.id = transactionHash;
-//     withdrawalRequest.userAddress = event.params.seller;
-//   }
-//   withdrawalRequest.sTokenAmount = event.params.sTokenAmount;
-//   withdrawalRequest.withdrawalCycleIndex = event.params.withdrawalCycleIndex;
-//   withdrawalRequest.save();
+export function handleWithdrawalRequested(event: WithdrawalRequested): void {
+  const transactionHash = event.transaction.hash.toHexString();
+  let withdrawalRequest = WithdrawalRequest.load(transactionHash);
+  if (!withdrawalRequest) {
+    withdrawalRequest = new WithdrawalRequest(transactionHash);
+    withdrawalRequest.id = transactionHash;
+    withdrawalRequest.userAddress = event.params.seller;
+    withdrawalRequest.user = event.params.seller.toHexString();
+    withdrawalRequest.sTokenAmount = ZERO_BIG_INT;
+    withdrawalRequest.withdrawalCycleIndex = ZERO_BIG_INT;
+  }
+  withdrawalRequest.sTokenAmount = event.params.sTokenAmount;
+  withdrawalRequest.withdrawalCycleIndex = event.params.withdrawalCycleIndex;
+  withdrawalRequest.save();
 
-//   const sellerAddressId = event.params.seller.toHex();
-//   let user = User.load(sellerAddressId);
-//   if (!user) {
-//     user = new User(sellerAddressId);
-//     user.id = sellerAddressId;
-//     user.protections = [];
-//   }
-//   user.withdrawalRequests.push(withdrawalRequest);
-//   user.save();
-// }
+  const sellerAddressId = event.params.seller.toHexString();
+  let user = User.load(sellerAddressId);
+  if (!user) {
+    user = new User(sellerAddressId);
+    user.id = sellerAddressId;
+    user.sTokenAmount = ZERO_BIG_INT;
+    user.protections = [];
+    user.withdrawalRequests = [];
+  }
+  let withdrawalRequests = user.withdrawalRequests;
+  withdrawalRequests.push(withdrawalRequest.id);
+  user.withdrawalRequests = withdrawalRequests;
+  user.save();
+}
 
 export function handleWithdrawalMade(event: WithdrawalMade): void {
   const transactionHash = event.transaction.hash.toHexString();
