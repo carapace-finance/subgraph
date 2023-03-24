@@ -78,36 +78,44 @@ export function handleProtectionSold(event: ProtectionSold): void {
   user.save();
 }
 
-// export function handleProtectionBought(event: ProtectionBought): void {
-//   const transactionHash = event.transaction.hash.toHexString();
-//   let protection = Protection.load(transactionHash);
-//   if (!protection) {
-//     protection = new Protection(transactionHash);
-//     protection.id = transactionHash;
-//     protection.userAddress = event.params.buyer;
-//   }
-//   protection.nftLpTokenId = ZERO_BIG_INT; // add data
-//   protection.premiumAmount = event.params.premium;
-//   protection.lendingPool = event.params.lendingPoolAddress.toHexString();
-//   protection.protectionAmount = event.params.protectionAmount;
-//   protection.startTimestamp = ZERO_BIG_INT;
-//   protection.protectionDurationInSeconds = ZERO_BIG_INT; // add data
-//   // add all the values to the protection entity
-//   const protectionPoolContract = ProtectionPoolContract.bind(event.address);
-//   const activeProtections = protectionPoolContract.getActiveProtections(
-//     event.params.buyer
-//   );
+export function handleProtectionBought(event: ProtectionBought): void {
+  const transactionHash = event.transaction.hash.toHexString();
+  let protection = Protection.load(transactionHash);
+  if (!protection) {
+    protection = new Protection(transactionHash);
+    protection.id = transactionHash;
+    protection.userAddress = event.params.buyer;
+    protection.user = event.params.buyer.toHexString();
+  }
+  protection.premiumAmount = event.params.premium;
+  protection.lendingPool = event.params.lendingPoolAddress.toHexString();
+  protection.protectionAmount = event.params.protectionAmount;
 
-//   const buyerAddressId = event.params.buyer.toHex();
-//   let user = User.load(buyerAddressId);
-//   if (!user) {
-//     user = new User(buyerAddressId);
-//     user.id = buyerAddressId;
-//     user.withdrawalRequests = [];
-//   }
-//   user.protections.push(protection);
-//   user.save();
-// }
+  const protectionPoolContract = ProtectionPoolContract.bind(event.address);
+  const activeProtections = protectionPoolContract.getActiveProtections(
+    event.params.buyer
+  );
+  protection.nftLpTokenId = ZERO_BIG_INT; // add data
+  protection.startTimestamp = ZERO_BIG_INT; // add data
+  protection.protectionDurationInSeconds = ZERO_BIG_INT; // add data
+  protection.save();
+
+  const buyerAddressId = event.params.buyer.toHexString();
+  let user = User.load(buyerAddressId);
+  if (!user) {
+    user = new User(buyerAddressId);
+    user.id = buyerAddressId;
+    user.sTokenAmount = ZERO_BIG_INT;
+    user.protections = [];
+    user.withdrawalRequests = [];
+  }
+  let protections = user.protections;
+  protections.push(protection.id);
+  user.protections = protections;
+  user.save();
+
+  // add the logic to add the protection amount purchase to the totalProtection of the specific LendingPool entity.
+}
 
 export function handleWithdrawalRequested(event: WithdrawalRequested): void {
   const transactionHash = event.transaction.hash.toHexString();
