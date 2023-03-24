@@ -24,8 +24,8 @@ type LendingPool @entity {
 type User @entity {
   id: ID! # user address
   sTokenAmount: BigInt!
-  protections: [Protection!]!
-  withdrawalRequests: [WithdrawalRequest!]!
+  protections: [Protection!]! @deriveFrom(field: "user")
+  withdrawalRequests: [WithdrawalRequest!]! @deriveFrom(field: "user")
 }
 
 type SToken @entity {
@@ -43,6 +43,7 @@ type Protection @entity {
   protectionAmount: BigInt!
   startTimestamp: BigInt!
   protectionDurationInSeconds: BigInt!
+  user: User!
 }
 
 type WithdrawalRequest @entity {
@@ -50,4 +51,5 @@ type WithdrawalRequest @entity {
   userAddress: Bytes!
   sTokenAmount: BigInt!
   withdrawalCycleIndex: BigInt!
+  user: User!
 }
