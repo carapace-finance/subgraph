@@ -124,6 +124,15 @@ export function handleProtectionBought(event: ProtectionBought): void {
   user.protections = protections;
   user.save();
 
+  let protectionPool = ProtectionPool.load(event.address.toHexString());
+  if (!protectionPool) {
+    protectionPool = new ProtectionPool(event.address.toHexString());
+    protectionPool.id = event.address.toHexString();
+  }
+  const protectionPoolDetails = protectionPoolContract.getPoolDetails();
+  protectionPool.totalProtection = protectionPoolDetails.get_totalProtection();
+  protectionPool.save();
+
   // add the logic to add the protection amount purchase to the totalProtection of the specific LendingPool entity.
 }
 
