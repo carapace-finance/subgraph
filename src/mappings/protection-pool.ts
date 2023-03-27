@@ -76,6 +76,16 @@ export function handleProtectionSold(event: ProtectionSold): void {
   }
   user.sTokenAmount = user.sTokenAmount.plus(sToken.sTokenAmount);
   user.save();
+
+  let protectionPool = ProtectionPool.load(event.address.toHexString());
+  if (!protectionPool) {
+    protectionPool = new ProtectionPool(event.address.toHexString());
+    protectionPool.id = event.address.toHexString();
+  }
+  const protectionPoolDetails = protectionPoolContract.getPoolDetails();
+  protectionPool.totalSTokenUnderlying =
+    protectionPoolDetails.get_totalSTokenUnderlying();
+  protectionPool.save();
 }
 
 export function handleProtectionBought(event: ProtectionBought): void {
@@ -170,4 +180,15 @@ export function handleWithdrawalMade(event: WithdrawalMade): void {
   }
   user.sTokenAmount = user.sTokenAmount.minus(event.params.tokenAmount);
   user.save();
+
+  let protectionPool = ProtectionPool.load(event.address.toHexString());
+  if (!protectionPool) {
+    protectionPool = new ProtectionPool(event.address.toHexString());
+    protectionPool.id = event.address.toHexString();
+  }
+  const protectionPoolContract = ProtectionPoolContract.bind(event.address);
+  const protectionPoolDetails = protectionPoolContract.getPoolDetails();
+  protectionPool.totalSTokenUnderlying =
+    protectionPoolDetails.get_totalSTokenUnderlying();
+  protectionPool.save();
 }
