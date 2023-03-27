@@ -12,7 +12,8 @@ import {
   User,
   SToken,
   Protection,
-  WithdrawalRequest
+  WithdrawalRequest,
+  LendingPool
 } from "../../generated/schema";
 import { ZERO_BIG_INT } from "../utils/constants";
 
@@ -137,7 +138,19 @@ export function handleProtectionBought(event: ProtectionBought): void {
     protectionPoolContract.calculateLeverageRatio();
   protectionPool.save();
 
-  // add the logic to add the protection amount purchase to the totalProtection of the specific LendingPool entity.
+  let lendingPool = LendingPool.load(
+    event.params.lendingPoolAddress.toHexString()
+  );
+  if (!lendingPool) {
+    lendingPool = new LendingPool(
+      event.params.lendingPoolAddress.toHexString()
+    );
+    lendingPool.id = event.params.lendingPoolAddress.toHexString();
+  }
+  lendingPool.totalProtection = lendingPool.totalProtection.plus(
+    event.params.protectionAmount
+  );
+  lendingPool.save();
 }
 
 export function handleWithdrawalRequested(event: WithdrawalRequested): void {
