@@ -85,6 +85,8 @@ export function handleProtectionSold(event: ProtectionSold): void {
   const protectionPoolDetails = protectionPoolContract.getPoolDetails();
   protectionPool.totalSTokenUnderlying =
     protectionPoolDetails.get_totalSTokenUnderlying();
+  protectionPool.leverageRatio =
+    protectionPoolContract.calculateLeverageRatio();
   protectionPool.save();
 }
 
@@ -131,6 +133,8 @@ export function handleProtectionBought(event: ProtectionBought): void {
   }
   const protectionPoolDetails = protectionPoolContract.getPoolDetails();
   protectionPool.totalProtection = protectionPoolDetails.get_totalProtection();
+  protectionPool.leverageRatio =
+    protectionPoolContract.calculateLeverageRatio();
   protectionPool.save();
 
   // add the logic to add the protection amount purchase to the totalProtection of the specific LendingPool entity.
@@ -199,5 +203,7 @@ export function handleWithdrawalMade(event: WithdrawalMade): void {
   const protectionPoolDetails = protectionPoolContract.getPoolDetails();
   protectionPool.totalSTokenUnderlying =
     protectionPoolDetails.get_totalSTokenUnderlying();
+  protectionPool.leverageRatio =
+    protectionPoolContract.calculateLeverageRatio();
   protectionPool.save();
 }
